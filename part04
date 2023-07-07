@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant Browser
+    participant Server
+
+    Browser->>+Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate Server
+    Server-->>+Browser: 302 Found /exampleapp/notes
+    deactivate Server
+    Note left of Server: redirect status
+    Browser->>+Server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate Server
+    Server-->>+Browser: 200 html document (notes.html)
+    deactivate Server
+    Browser->>+Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate Server
+    Server-->>+Browser: 200 css document (main.css)
+    deactivate Server
+    Browser->>+Server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate Server
+    Server-->>+Browser: 200 js document (main.js)
+    deactivate Server
+    Note right of Browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+    Browser->>+Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate Server
+    Server-->>+Browser: 200 json document (data.json)
+    deactivate Server
+    Note right of Browser: The browser executes the callback function that renders the notes
+
